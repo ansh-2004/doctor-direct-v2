@@ -28,7 +28,7 @@ app.use(
 
 app.use((req, res, next) => {
   
-   res.setHeader("Access-Control-Allow-Origin", "https://doctordirectproject.netlify.app/");
+   res.setHeader("Access-Control-Allow-Origin", "https://doctordirectproject.netlify.app");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.setHeader("Access-Control-Allow-Credentials", true);
