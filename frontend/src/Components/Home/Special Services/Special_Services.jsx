@@ -115,7 +115,7 @@ const Special_Services = () => {
               <ServiceItem icon={<FaFlask size={48} color="white" />} text="Lab Reports" isLink linkPath="/labreport" marginClasses="ml-40" />
             </div>
             <div className="flex flex-col space-y-24">
-              <ServiceItem icon={<SlCalender size={48} color="white" />} text="Period Tracker" marginClasses="mr-40" />
+              <ServiceItem icon={<SlCalender size={48} color="white" />} text="Appointment Fee " isLink linkPath="https://buy.stripe.com/test_6oE7vTcFR6Tr4la000" marginClasses="mr-40" />
               <ServiceItem icon={<FaHospital size={48} color="white" />} text="Hospital Near Me" isLink linkPath="/Hospital_Near_Me" marginClasses="mr-40" />
             </div>
           </div>
@@ -140,7 +140,12 @@ const ServiceItem = ({ icon, text, isLink = false, linkPath = '', marginClasses 
 
   return (
     <div className={`hover:scale-105 transition-all ${marginClasses}`}>
-      {isLink ? <Link to={linkPath}>{content}</Link> : content}
+     {isLink ? 
+        (linkPath.startsWith("http") ? 
+          <a href={linkPath} target="_blank" rel="noopener noreferrer">{content}</a> 
+          : 
+          <Link to={linkPath}>{content}</Link>) 
+        : content}
     </div>
   );
 };
