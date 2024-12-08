@@ -60,4 +60,4 @@ const routes = require("./routes/route");
 
 // mounting the route.
 app.use("/hc", routes);
-module.exports = app;
+
