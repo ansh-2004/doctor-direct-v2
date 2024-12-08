@@ -10,11 +10,6 @@ const cloudinary = require('cloudinary').v2;
 const path = require("path");
 
 
-
-
-
-
-
 require('dotenv').config();
 
 

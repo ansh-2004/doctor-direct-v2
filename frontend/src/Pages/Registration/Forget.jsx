@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
 import { toast } from "react-toastify";
 // import Verify_Otp from "./Verify_Otp";
 // import { connect } from "http2";
 
 const Forget = () => {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
+  
 
   function changeHandler(event) {
     setEmail(event.target.value);

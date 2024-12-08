@@ -1,16 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import Login_Image from "../../Assets/Login_Image.webp";
-import { useLocation, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useParams } from 'react-router-dom';
-import { AppContext } from "../../Components/Context/AppContext";
+
 import { toast } from "react-toastify";
 
-const Reset_Password = () => {
-  const location = useLocation();
+const ResetPassword = () => {
+  
   const { id } = useParams();
   // const { email } = location.state;
-  const { setIsLoggedIn } = useContext(AppContext);
+ 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
@@ -120,4 +120,4 @@ const Reset_Password = () => {
   );
 };
 
-export default Reset_Password;
+export default ResetPassword;
