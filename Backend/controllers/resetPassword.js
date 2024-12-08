@@ -19,7 +19,7 @@ exports.resetPasswordToken = async (req,res)=>
         let id = findUser._id + '.' + time;
         //console.log(id);
        
-        const url = `http://localhost:3000/ResetPassword/${id}`;
+        const url = `https://doctordirectproject.netlify.app/ResetPassword/${id}`;
         
 
         const emailBody = `Hi ${findUser.name},<br><br>Kindly click this <a href="${url}">link</a> to reset your password.`;
