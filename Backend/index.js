@@ -27,8 +27,8 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  //res.setHeader("Access-Control-Allow-Origin", "https://healthconnect-e0t5.onrender.com");
-   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  
+   res.setHeader("Access-Control-Allow-Origin", "https://doctordirectproject.netlify.app/");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
   res.setHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
   res.setHeader("Access-Control-Allow-Credentials", true);
@@ -37,8 +37,9 @@ app.use((req, res, next) => {
 
 app.use(
   cors({
-   // origin: "https://healthconnect-e0t5.onrender.com",
-     origin: "http://localhost:3000",
+ 
+     //origin: "http://localhost:3000",
+     origin: "https://doctordirectproject.netlify.app/",
     
   })
 );
