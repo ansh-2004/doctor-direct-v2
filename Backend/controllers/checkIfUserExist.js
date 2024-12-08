@@ -21,14 +21,7 @@ exports.checkIfUserExist = async (req, res) => {
         message: "Sorry!! Kindly signup first.",
       });
     }
-    else{
-      return res.status(200).json(
-        {
-          success : true,
-          
-        }
-      )
-    }
+  
   }catch(err){
     return res.status(400).json({
         success:false,
