@@ -28,7 +28,7 @@ cloudinary.config({
 
 app.use(
   "/",
-  express.static(path.join(__dirname, "../healthconnectfrontend/build"))
+  express.static(path.join(__dirname, "../frontend/build"))
 );
 
 app.use((req, res, next) => {
