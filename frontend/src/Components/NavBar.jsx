@@ -1,24 +1,14 @@
 import React, { useContext, useState } from "react";
-import Logo_Image from "../Assets/HealthConnectLogo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AppContext } from "./Context/AppContext";
 import Button from "./Button";
 import Logo from "./Logo";
 
 const NavBar = () => {
-	const { isLoggedIn, setAndCheckExpiration, role } = useContext(AppContext);
+	const { isLoggedIn, setAndCheckExpiration } = useContext(AppContext);
 	const { name } = useContext(AppContext);
 
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-	const navigate = useNavigate();
-	const homePageRedirect = () => {
-		if (role === "Doctor") {
-			navigate("/Doctor_UI");
-		} else {
-			navigate("/");
-		}
-	};
 
 	const toggleMobileMenu = () => {
 		setMobileMenuOpen(!mobileMenuOpen);
