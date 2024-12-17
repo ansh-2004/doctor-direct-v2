@@ -9,7 +9,7 @@ exports.resetPasswordToken = async (req,res)=>
         // console.log(req);
         const findUser = await User.findOne({email});
         if(!findUser)
-        {
+        { 
             return res.status(400).json({
                 success:false,
                 message:"You are not registered with us."
@@ -19,7 +19,8 @@ exports.resetPasswordToken = async (req,res)=>
         let id = findUser._id + '.' + time;
         //console.log(id);
        
-        const url = `https://doctordirectproject.netlify.app/ResetPassword/${id}`;
+        // const url = `https://doctordirectproject.netlify.app/ResetPassword/${id}`;
+        const url = `http://localhost:3000/ResetPassword/${id}`;
         
 
         const emailBody = `Hi ${findUser.name},<br><br>Kindly click this <a href="${url}">link</a> to reset your password.`;

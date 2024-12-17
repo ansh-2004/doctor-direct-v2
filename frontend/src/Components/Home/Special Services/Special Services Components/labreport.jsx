@@ -14,6 +14,7 @@ const LabReport = () => {
     pid: '555',
   });
   
+
   const reportRef = useRef();
   const currentDate = new Date().toLocaleString();
 
@@ -60,17 +61,17 @@ const LabReport = () => {
 
       const element = reportRef.current;
 
-      const checkIfUserExist  = await fetch(`${process.env.REACT_APP_BACKEND_URL}/checkIfUserExist`,{
-        method:'POST',
-        body:JSON.stringify(formData)
-      })
+      // const checkIfUserExist  = await fetch(`${process.env.REACT_APP_BACKEND_URL}/checkIfUserExist`,{
+      //   method:'POST',
+      //   body:JSON.stringify(formData)
+      // })
 
-      const res = await checkIfUserExist.json();
-      if(!res.success)
-      {
-        toast.error('User does not Exist. Please sign up first');
-        return;
-      }
+      // const res = await checkIfUserExist.json();
+      // if(!res.success)
+      // {
+      //   toast.error('User does not Exist. Please sign up first');
+      //   return;
+      // }
       const canvas = await html2canvas(element, {
         logging: false,
         useCORS: true,
@@ -95,6 +96,7 @@ const LabReport = () => {
         throw new Error('File size too large');
       }
 
+      
       const formDataToSend = new FormData();
       formDataToSend.append('file', pdfBlob, 'lab-report.pdf');
 

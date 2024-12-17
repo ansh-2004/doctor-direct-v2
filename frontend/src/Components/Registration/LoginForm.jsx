@@ -110,7 +110,9 @@ const LoginForm = () => {
       toast.success(data.message);
       //console.log(appointments);
       
-      const reminder= (appointments?.Data[0]?.date?formatDate(appointments.Data[0].date):'No Appointments');
+      // const reminder= (appointments?.Data[0]?.date?formatDate(appointments.Data[0].date):'No Appointments');
+      const reminder = (appointments?.Data?.[0]?.date ? formatDate(appointments.Data[0].date) : 'No Appointments');
+  
       //console.log(reminder);
       
       toast.success(`Reminder: ${reminder}`)

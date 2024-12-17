@@ -11,6 +11,7 @@ function HospitalNearMe() {
     latitude: 0,
     longitude: 0,
   });
+  
   const [nearby, setNearby] = useState([]);
   const mapRef = useRef(null); // Create a ref for MapContainer
   const [loading,setLoading] = useState(true);
