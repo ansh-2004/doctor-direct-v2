@@ -1,102 +1,74 @@
-
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import BackGround_img from "../../Assets/Book_Appointement_BackGround.jpeg";
 import ForeGround_img from "../../Assets/Book_Appointement_ForeGround.jpeg";
 import { useContext } from "react";
 import { AppContext } from "../Context/AppContext";
-import 'animate.css';
+import "animate.css";
+import Button from "../Button";
 
 const Book_Appointement = () => {
-  const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AppContext);
-  const BookHandler = () => {
-    {
-      isLoggedIn ? navigate("/Book_Appointement_type") : navigate("/login");
-    }
-  };
-  return (
-    <div className="flex justify-between mt-6">
-      <div className="mx-[13rem] my-[3rem] animate__animated animate__fadeInLeft">
-        <div className="">
-          <div className="text-indigo-950 text-6xl font-bold font-['Poppins']">
-            We Are Ready to
-          </div>
-          <div className="text-teal-300 text-6xl font-bold font-['Poppins']">
-            Help Anywhere
-          </div>
-          <div className="text-indigo-950 text-6xl font-bold font-['Poppins']">
-            Anytime
-          </div>
-        </div>
-        <div className="text-stone-600 text-2xl font-medium font-['Poppins'] mt-5">
-          In times like today, your health is very important,
-          <br />
-          especially since the number of COVID-19 cases is
-          <br />
-          increasing day by day, so we are ready to help you
-          <br />
-          with your health consultation
-        </div>
+	const navigate = useNavigate();
+	const { isLoggedIn, role } = useContext(AppContext);
 
-        <button
-          onClick={BookHandler}
-          className="px-4 py-2 bg-gradient-to-r from-teal-300 to-sky-700 rounded-full my-5 hover:scale-110 transition-all"
-        >
-          <div className="text-center text-white text-xl font-semibold font-['Poppins']">
-            Book Appointement
-          </div>
-        </button>
+	const BookHandler = () => {
+		isLoggedIn ? navigate("/Book_Appointement_type") : navigate("/login");
+	};
 
-        <div className="flex gap-[4rem]">
-          <div>
-            <div className="text-sky-700 text-3xl font-bold font-['Poppins']">
-              100+
-            </div>
-            <div className="w-[51.78px] text-stone-600 font-semibold font-['Poppins']">
-              Active Doctors
-            </div>
-          </div>
-
-          <div className="">
-            <div className="text-sky-700 text-3xl font-bold font-['Poppins']">
-              30000+
-            </div>
-            <div className="w-[51.78px] text-stone-600 font-semibold font-['Poppins']">
-              Active Hospitals
-            </div>
-          </div>
-
-          <div>
-            <div className="text-sky-700 text-3xl font-bold font-['Poppins']">
-              1000+
-            </div>
-            <div className="w-[51.78px] text-stone-600 font-semibold font-['Poppins']">
-              Active Users
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="relative">
-        <img
-          src={BackGround_img}
-          alt="bg"
-          className="w-[550px] h-[500px] rounded-tl-[40%] rounded-bl-[10%]"
-        ></img>
-        <div className="w-[380px] h-[452.21px] bg-gradient-to-b from-teal-300 via-cyan-700 to-sky-700 rounded-tl-full rounded-tr-full border-8 border-white absolute top-[15%] left-[15%] overflow-hidden shadow-xl">
-          <img
-            src={ForeGround_img}
-            alt="fg"
-            className="w-full h-full absolute inset-0 object-cover"
-          />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="container px-4 py-8 mx-auto">
+			<div className="flex flex-col items-center justify-between lg:flex-row lg:items-start md:pl-12">
+				<div className="w-full text-center lg:w-1/2 lg:text-left animate__animated animate__fadeInLeft">
+					<div className="mb-6">
+						<h1 className="text-3xl font-bold leading-tight text-indigo-950 sm:text-4xl md:text-5xl lg:text-6xl font-['Poppins']">
+							We Are Ready to
+							<span className="block text-teal-300">Help Anywhere</span>
+							Anytime
+						</h1>
+					</div>
+					<p className="mb-8 text-base leading-relaxed text-stone-600 sm:text-lg md:text-xl lg:text-2xl font-['Poppins']">
+						In times like today, your health is very important, especially since
+						the number of COVID-19 cases is increasing day by day, so we are
+						ready to help you with your health consultation
+					</p>
+					{role === "Doctor" ? (
+						<Button onClick={() => navigate("/Available_Appointments")}>
+							Show Appointment
+						</Button>
+					) : (
+						<Button onClick={BookHandler}>Book Appointment</Button>
+					)}
+					<div className="flex flex-wrap justify-center gap-8 mt-8 lg:justify-start">
+						{[
+							{ count: "100+", label: "Active Doctors" },
+							{ count: "30000+", label: "Active Hospitals" },
+							{ count: "1000+", label: "Active Users" },
+						].map((item, index) => (
+							<div key={index} className="text-center lg:text-left">
+								<div className="text-2xl font-bold text-sky-700 sm:text-3xl font-['Poppins']">
+									{item.count}
+								</div>
+								<div className="font-semibold text-stone-600 font-['Poppins']">
+									{item.label}
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+				<div className="relative w-full max-w-[550px] mt-12 lg:mt-0 lg:w-1/2">
+					<div className="relative w-full">
+						<div className="w-[80%] max-w-[380px] mx-auto bg-gradient-to-b from-teal-300 via-cyan-700 to-sky-700 rounded-tl-full rounded-tr-full border-8 border-white overflow-hidden shadow-xl h-[650px]">
+							<img
+								src={ForeGround_img}
+								alt="Foreground"
+								className="object-cover object-top w-full h-full"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default Book_Appointement;
-
-
-

@@ -1,78 +1,132 @@
-
-
-
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Logo_Image from "../Assets/HealthConnectLogo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "./Context/AppContext";
+import Button from "./Button";
+import Logo from "./Logo";
 
 const NavBar = () => {
-  const { isLoggedIn, setAndCheckExpiration, role } = useContext(AppContext);
-  const { name, setName } = useContext(AppContext);
+	const { isLoggedIn, setAndCheckExpiration, role } = useContext(AppContext);
+	const { name } = useContext(AppContext);
 
-  const navigate = useNavigate();
-  const homePageRedirect = () => {
-    if (role === "Doctor") {
-      navigate("/Doctor_UI");
-    } else {
-      navigate("/");
-    }
-  };
+	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  return (
-    <div className="">
-      <div className="flex justify-between mx-8 my-3 items-center">
-        <img 
-          src={Logo_Image}
-          alt="Logo"
-          width={160}
-          height={42}
-          loading="lazy"
-          onClick={homePageRedirect}
-          className="h-[60px] w-[300px]"
-        />
+	const navigate = useNavigate();
+	const homePageRedirect = () => {
+		if (role === "Doctor") {
+			navigate("/Doctor_UI");
+		} else {
+			navigate("/");
+		}
+	};
 
-        <div className="flex mt-2 gap-5 items-center">
-          {!isLoggedIn && (
-            <Link to="/login">
-              <div className="w-[150px] h-[40px] px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]">
-                <div className="text-center text-white font-semibold font-['Poppins'] text-xl hover:scale-125 ">
-                  Log in
-                </div>
-              </div>
-            </Link>
-          )}
-          {!isLoggedIn && (
-            <Link to="/signup">
-              <div className="w-[150px] h-[40px] px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]">
-                <div className="text-center text-white font-semibold font-['Poppins'] text-xl hover:scale-125 ">
-                  Sign up
-                </div>
-              </div>
-            </Link>
-          )}
-          {isLoggedIn && (
-            <div className="text-center font-semibold font-['Poppins']">
-              {name}
-            </div>
-          )}
-          {isLoggedIn && (
-            <Link to="/">
-              <button
-                onClick={() => setAndCheckExpiration(false)}
-                className=" w-full h-full px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow justify-start items-start gap-[5.13px] inline-flex"
-              >
-                <div className="text-center text-white font-semibold font-['Poppins']">
-                  Log Out
-                </div>
-              </button>
-            </Link>
-          )}
-        </div>
-      </div>
-    </div>
-  );
+	const toggleMobileMenu = () => {
+		setMobileMenuOpen(!mobileMenuOpen);
+	};
+
+	return (
+		<nav className="sticky top-0 z-50 bg-white border-teal-700 border-b-[1px]">
+			<div className="container px-4 mx-auto sm:px-6 lg:px-8">
+				<div className="flex items-center justify-between py-4">
+					{/* Logo */}
+					<Logo />
+
+					{/* Mobile Menu Toggle */}
+					<div className="lg:hidden">
+						<button
+							className="text-gray-700 focus:outline-none focus:text-gray-900"
+							id="mobile-menu-toggle"
+							onClick={toggleMobileMenu}
+						>
+							<svg
+								className="w-6 h-6"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="none"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+							>
+								<path
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									strokeWidth="2"
+									d="M4 6h16M4 12h16m-7 6h7"
+								/>
+							</svg>
+						</button>
+					</div>
+
+					{/* Desktop Menu */}
+					<div className="items-center hidden gap-6 lg:flex">
+						{/* Display for logged-out users */}
+						{!isLoggedIn && (
+							<>
+								<Link to="/login">
+									<Button>Login</Button>
+								</Link>
+								<Link to="/signup">
+									<Button>SignUp</Button>
+								</Link>
+							</>
+						)}
+
+						{/* Display for logged-in users */}
+						{isLoggedIn && (
+							<>
+								<div className="text-center font-semibold font-['Poppins'] text-gray-700">
+									{name}
+								</div>
+								<Button
+									onClick={() => setAndCheckExpiration(false)}
+									className="w-auto h-auto px-5 py-2 rounded-full shadow bg-gradient-to-r from-teal-300 to-sky-700"
+								>
+									<div className="text-white font-semibold font-['Poppins'] text-sm">
+										Log Out
+									</div>
+								</Button>
+							</>
+						)}
+					</div>
+				</div>
+			</div>
+
+			{/* Mobile Menu */}
+			{mobileMenuOpen && (
+				<div
+					id="mobile-menu"
+					className="flex-col items-center bg-white border-t shadow-md lg:hidden"
+				>
+					{!isLoggedIn && (
+						<>
+							<Link to="/login">
+								<div className="w-full py-3 font-semibold text-center text-teal-500 hover:bg-gray-100">
+									Log in
+								</div>
+							</Link>
+							<Link to="/signup">
+								<div className="w-full py-3 font-semibold text-center text-teal-500 hover:bg-gray-100">
+									Sign up
+								</div>
+							</Link>
+						</>
+					)}
+
+					{isLoggedIn && (
+						<>
+							<div className="py-3 font-semibold text-center text-gray-700">
+								{name}
+							</div>
+							<button
+								onClick={() => setAndCheckExpiration(false)}
+								className="w-full py-3 font-semibold text-center text-teal-500 hover:bg-gray-100"
+							>
+								Log Out
+							</button>
+						</>
+					)}
+				</div>
+			)}
+		</nav>
+	);
 };
 
 export default NavBar;
-

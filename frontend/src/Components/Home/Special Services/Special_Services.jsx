@@ -51,7 +51,7 @@
 //                 </div>
 //                 <div>Lab Reports</div>
 //               </div>
-              
+
 //                 <div>
 //                   <Link to="/Hospital_Near_Me">
 //                       <div className="w-full h-full bg-gradient-to-b from-teal-300 to-sky-700 rounded-[25%] flex justify-center items-center mb-4">
@@ -73,81 +73,135 @@
 
 // export default Special_Services;
 
-
-
 import React from "react";
-import 'animate.css';
+import "animate.css";
 import Doctor_Special_Services from "../../../Assets/Doctor_Special_Services.png";
-import {
-  FaCalculator,
-  FaFlask,
-  FaHospital,
-} from "react-icons/fa6";
+import { FaCalculator, FaFlask, FaHospital } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import { Link } from "react-router-dom";
 import useScrollAnimation from "./useScrollAnimation";
 
 const Special_Services = () => {
-  const [containerRef, isVisible] = useScrollAnimation();
+	const [containerRef, isVisible] = useScrollAnimation();
 
-  return (
-    <div ref={containerRef}>
-      <div className={`flex h-[100vh] mx-[5rem] gap-[10%] transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <div className={`mt-[8rem] mb-[14rem] relative w-[25%] h-[65%] bg-gradient-to-b from-teal-300 via-cyan-700 to-sky-700 rounded-tl-full rounded-tr-full border-8 border-white shadow-xl transition-transform duration-1000 ${isVisible ? 'animate__animated animate__fadeInLeft' : ''}`}>
-          <img
-            src={Doctor_Special_Services}
-            alt="Doctor"
-            className="absolute top-[-32%] left-0 h-[600px] transform transition duration-1000 ease-in-out hover:scale-110"
-          />
-        </div>
-        <div className={`bg-gradient-to-r from-teal-200 to-teal-500 w-[70%] h-[80vh] rounded-full ${isVisible ? 'animate__animated animate__fadeInRight' : ''}`}>
-          <div className="flex mt-[7rem] mb-[4rem]">
-            <div className={`text-indigo-950 text-6xl font-bold font-['Poppins'] mr-4 ml-40 ${isVisible ? 'animate__animated animate__fadeInRight' : ''}`}>
-              Our
-            </div>
-            <div className="text-white text-6xl font-bold font-['Poppins']">
-              Special Services
-            </div>
-          </div>
-          <div className="mx-9 flex justify-between">
-            <div className="flex flex-col space-y-24">
-              <ServiceItem icon={<FaCalculator size={48} color="white" />} text="BMI Calculator" isLink linkPath="/BMI_Calculator" marginClasses="ml-40" />
-              <ServiceItem icon={<FaFlask size={48} color="white" />} text="Lab Reports" isLink linkPath="/labreport" marginClasses="ml-40" />
-            </div>
-            <div className="flex flex-col space-y-24">
-              <ServiceItem icon={<SlCalender size={48} color="white" />} text="Appointment Fee " isLink linkPath="https://buy.stripe.com/test_6oE7vTcFR6Tr4la000" marginClasses="mr-40" />
-              <ServiceItem icon={<FaHospital size={48} color="white" />} text="Hospital Near Me" isLink linkPath="/Hospital_Near_Me" marginClasses="mr-40" />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="text-5xl ml-[5rem] font-semibold text-sky-700">
-        Latest News
-      </div>
-    </div>
-  );
+	return (
+		<div ref={containerRef} className="container px-4 mx-auto lg:px-12 ">
+			<div
+				className={`flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16 min-h-screen transition-opacity duration-1000 ${
+					isVisible ? "opacity-100" : "opacity-0"
+				}`}
+			>
+				<div className="container w-full px-4 py-8 mx-auto lg:w-1/3">
+					{" "}
+					<div className="flex flex-col items-center justify-center mt-6 lg:flex-row">
+						{" "}
+						<div
+							className={`w-full max-w-xs lg:max-w-md h-auto aspect-[3/4] transition-transform duration-1000 ${
+								isVisible ? "animate__animated animate__fadeInLeft" : ""
+							}`}
+						>
+							{" "}
+							<div className="w-full h-full bg-gradient-to-b from-teal-300 via-cyan-700 to-sky-700 rounded-tl-[40%] rounded-tr-[40%] border-8 border-white shadow-xl overflow-hidden">
+								{" "}
+								<img
+									src={Doctor_Special_Services}
+									alt="Doctor"
+									className="object-cover w-full h-full transition-transform duration-1000 ease-in-out hover:scale-110"
+								/>{" "}
+							</div>{" "}
+						</div>{" "}
+					</div>{" "}
+				</div>
+
+				{/* Services Container */}
+				<div
+					className={`w-full lg:w-2/3 bg-gradient-to-r from-teal-200 to-teal-500 rounded-3xl p-6 lg:p-12 ${
+						isVisible ? "animate__animated animate__fadeInRight" : ""
+					}`}
+				>
+					{/* Title */}
+					<div className="flex flex-col items-center justify-center mb-8 lg:flex-row lg:mb-12">
+						<h2
+							className={`text-3xl lg:text-6xl font-bold font-['Poppins'] text-indigo-950 mr-0 lg:mr-4 mb-2 lg:mb-0 ${
+								isVisible ? "animate__animated animate__fadeInRight" : ""
+							}`}
+						>
+							Our
+						</h2>
+						<h2 className="text-3xl lg:text-5xl font-bold font-['Poppins'] text-white">
+							Special Services
+						</h2>
+					</div>
+
+					{/* Services Grid */}
+					<div className="grid grid-cols-2 gap-6 lg:gap-12">
+						<div className="space-y-6 lg:space-y-12">
+							<ServiceItem
+								icon={<FaCalculator size={36} color="white" />}
+								text="BMI Calculator"
+								isLink
+								linkPath="/BMI_Calculator"
+							/>
+							<ServiceItem
+								icon={<FaFlask size={36} color="white" />}
+								text="Lab Reports"
+								isLink
+								linkPath="/labreport"
+							/>
+						</div>
+						<div className="space-y-6 lg:space-y-12">
+							<ServiceItem
+								icon={<SlCalender size={36} color="white" />}
+								text="Appointment Fee"
+								isLink
+								linkPath="https://buy.stripe.com/test_6oE7vTcFR6Tr4la000"
+							/>
+							<ServiceItem
+								icon={<FaHospital size={36} color="white" />}
+								text="Hospital Near Me"
+								isLink
+								linkPath="/Hospital_Near_Me"
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
-const ServiceItem = ({ icon, text, isLink = false, linkPath = '', marginClasses = '' }) => {
-  const content = (
-    <>
-      <div className="w-full h-full bg-gradient-to-b from-teal-300 to-sky-700 rounded-[25%] flex justify-center items-center mb-4">
-        {icon}
-      </div>
-      <div>{text}</div>
-    </>
-  );
+const ServiceItem = ({ icon, text, isLink = false, linkPath = "" }) => {
+	const content = (
+		<div className="text-center">
+			<div className="w-20 h-20 lg:w-24 lg:h-24 mx-auto bg-gradient-to-b from-teal-300 to-sky-700 rounded-[25%] flex justify-center items-center mb-4">
+				{icon}
+			</div>
+			<div className="text-sm lg:text-base">{text}</div>
+		</div>
+	);
 
-  return (
-    <div className={`hover:scale-105 transition-all ${marginClasses}`}>
-     {isLink ? 
-        (linkPath.startsWith("http") ? 
-          <a href={linkPath} target="_blank" rel="noopener noreferrer">{content}</a> 
-          : 
-          <Link to={linkPath}>{content}</Link>) 
-        : content}
-    </div>
-  );
+	return (
+		<div className="text-center transition-all hover:scale-105">
+			{isLink ? (
+				linkPath.startsWith("http") ? (
+					<a
+						href={linkPath}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="block"
+					>
+						{content}
+					</a>
+				) : (
+					<Link to={linkPath} className="block">
+						{content}
+					</Link>
+				)
+			) : (
+				content
+			)}
+		</div>
+	);
 };
 
 export default Special_Services;
