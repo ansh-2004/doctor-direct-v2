@@ -25,74 +25,76 @@ import Scheduled_Appointements from "./Components/Doctor_UI/Home/scheduled_Appoi
 import ViewAppointements from "./Pages/ViewAppointements";
 import BMICalculator from "./Components/Home/Special Services/Special Services Components/BMI_Calculator";
 import LabReport from "./Components/Home/Special Services/Special Services Components/labreport";
+import Patient from "./Pages/Patient";
 
 function App() {
-  return (
-    <div>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/Forget" element={<Forget />} />
-        <Route path="/ResetPassword/:id" element={<ResetPassword />} />
-        {/* <Route path="/Verify_Otp" element={<Verify_Otp />} /> */}
-        <Route path="/Hospital_Near_Me" element={<Hospital_Near_ME />}></Route>
-        <Route path="/BMI_Calculator" element={<BMICalculator />}></Route>
-        <Route path="/labreport" element={<LabReport />}></Route>
-        <Route
-          path="/Book_Appointement_State"
-          element={<Book_Appointement_State />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_District"
-          element={<Book_Appointement_District />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Hospital"
-          element={<Book_Appointement_Hospital />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_type"
-          element={<Book_Appointement_Type />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Depart"
-          element={<Book_Appointement_Departement />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Mode"
-          element={<Book_Appointement_SelectMode />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Doctor"
-          element={<Book_Appointement_Doctors />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Dates"
-          element={<Book_Appointement_Dates />}
-        ></Route>
-        <Route
-          path="/Book_Appointement_Doctor_Date_Data"
-          element={<Book_Appointement_Doctor_Date />}
-        ></Route>
-        <Route path="/Doctor_UI" element={<Doctor_HomeScreen />}></Route>
-        <Route
-          path="/Available_Appointments"
-          element={<Available_Appointments />}
-        ></Route>
-        <Route
-          path="/scheduled_Appointments"
-          element={<Scheduled_Appointements />}
-        ></Route>
-        <Route
-          path="/view_Appointments"
-          element={<ViewAppointements />}
-        ></Route>
-        <Route path="*" element={<Home />} />
-      </Routes>
-    </div>
-  );
+	return (
+		<div>
+			<NavBar />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/Forget" element={<Forget />} />
+				<Route path="/ResetPassword/:id" element={<ResetPassword />} />
+				{/* <Route path="/Verify_Otp" element={<Verify_Otp />} /> */}
+				<Route path="/Hospital_Near_Me" element={<Hospital_Near_ME />}></Route>
+				<Route path="/BMI_Calculator" element={<BMICalculator />}></Route>
+				<Route path="/labreport" element={<LabReport />}></Route>
+				<Route
+					path="/Book_Appointement_State"
+					element={<Book_Appointement_State />}
+				></Route>
+				<Route
+					path="/Book_Appointement_District"
+					element={<Book_Appointement_District />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Hospital"
+					element={<Book_Appointement_Hospital />}
+				></Route>
+				<Route
+					path="/Book_Appointement_type"
+					element={<Book_Appointement_Type />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Depart"
+					element={<Book_Appointement_Departement />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Mode"
+					element={<Book_Appointement_SelectMode />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Doctor"
+					element={<Book_Appointement_Doctors />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Dates"
+					element={<Book_Appointement_Dates />}
+				></Route>
+				<Route
+					path="/Book_Appointement_Doctor_Date_Data"
+					element={<Book_Appointement_Doctor_Date />}
+				></Route>
+				<Route path="/Doctor_UI" element={<Doctor_HomeScreen />}></Route>
+				<Route
+					path="/Available_Appointments"
+					element={<Available_Appointments />}
+				></Route>
+				<Route
+					path="/scheduled_Appointments"
+					element={<Scheduled_Appointements />}
+				></Route>
+				<Route
+					path="/view_Appointments"
+					element={<ViewAppointements />}
+				></Route>
+				<Route path="/patient/:id" element={<Patient />} />
+				<Route path="*" element={<Home />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
