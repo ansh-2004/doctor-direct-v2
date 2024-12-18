@@ -6,76 +6,109 @@ import dayjs from "dayjs";
 import { AppContext } from "../../Context/AppContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Button from "../../Button";
 
 export default function StaticDatePickerLandscape() {
-  const { setDoctorDate, doctor, doctorDate, Uid } = useContext(AppContext);
-  const [tempdate, setTempDate] = useState();
-  const navigate = useNavigate();
+	const { setDoctorDate, doctor, doctorDate, Uid } = useContext(AppContext);
+	const [tempDate, setTempDate] = useState(null);
+	const navigate = useNavigate();
 
-  const handleDateChange = async (newValue) => {
-    //console.log(newValue);
+	const handleDateChange = async () => {
+		if (!tempDate) {
+			toast.error("Please select a date");
+			return;
+		}
 
-    const formattedDate = dayjs(tempdate).format("YYYY-MM-DD");
-    setDoctorDate(formattedDate);
-    const data = {
-      doctorId: doctor,
-      patientId: Uid,
-      date: formattedDate, // Use newValue which is the updated date
-    };
+		const formattedDate = dayjs(tempDate).format("YYYY-MM-DD");
+		setDoctorDate(formattedDate);
 
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_URL}/Set_doctor_Appointement`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
+		const data = {
+			doctorId: doctor,
+			patientId: Uid,
+			date: formattedDate,
+		};
 
-      if (!response.ok) {
-        const errormess = await response.json();
-        //console.log(typeof errormess.message);
-        toast.error(errormess.message);
-        return;
-      }
+		try {
+			const response = await fetch(
+				`${process.env.REACT_APP_BACKEND_URL}/Set_doctor_Appointement`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				}
+			);
 
-      if (response.ok) {
-        const responseData = await response.json();
-        toast.success(responseData.message);
-        //console.log(responseData);
-      }
+			if (!response.ok) {
+				const errorMessage = await response.json();
+				toast.error(errorMessage.message);
+				return;
+			}
 
-      navigate("/view_Appointments");
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+			const responseData = await response.json();
+			toast.success(responseData.message);
+			navigate("/view_Appointments");
+		} catch (error) {
+			console.error("Error:", error);
+			toast.error("An unexpected error occurred");
+		}
+	};
 
-  return (
-    <div className="h-[73vh] overflow-scroll flex flex-col">
-      <div className="text-2xl text-center">Select Date</div>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <StaticDatePicker
-          orientation="Portrait"
-          minDate={dayjs()} // Set minDate to today's date
-          onChange={(newValue) => setTempDate(newValue)} // Corrected line
-          componentsProps={{
-            actionBar: {
-              actions: [], // Add this line
-            },
-          }}
-        />
+	return (
+		<div className="container max-w-md px-4 py-6 mx-auto">
+			<div className="overflow-hidden bg-white rounded-lg shadow-lg">
+				<div className="p-4 bg-gradient-to-r from-teal-300 to-sky-700">
+					<h2 className="text-2xl font-bold text-center text-white">
+						Select Appointment Date
+					</h2>
+				</div>
 
-        <button
-          className="text-center font-semibold font-['Poppins'] mt-[1rem]"
-          onClick={handleDateChange}
-        >
-          Book Appointment
-        </button>
-      </LocalizationProvider>
-    </div>
-  );
+				<div className="p-4 space-y-4">
+					<LocalizationProvider dateAdapter={AdapterDayjs}>
+						<StaticDatePicker
+							className="w-full"
+							orientation="portrait"
+							minDate={dayjs()}
+							value={tempDate}
+							onChange={(newValue) => setTempDate(newValue)}
+							slotProps={{
+								actionBar: {
+									actions: [],
+								},
+								toolbar: {
+									hidden: false,
+								},
+							}}
+							sx={{
+								"& .MuiPickersCalendarHeader-root": {
+									marginBottom: "8px",
+								},
+								"& .MuiPickersDay-root": {
+									borderRadius: "8px",
+								},
+							}}
+						/>
+					</LocalizationProvider>
+
+					<div className="flex flex-col space-y-3">
+						{tempDate && (
+							<div className="font-medium text-center text-gray-700">
+								Selected Date: {dayjs(tempDate).format("MMMM D, YYYY")}
+							</div>
+						)}
+
+						<Button
+							onClick={handleDateChange}
+							className="w-full"
+							disabled={!tempDate}
+							size="lg"
+						>
+							{tempDate ? "Book Appointment" : "Select a Date"}
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 }
