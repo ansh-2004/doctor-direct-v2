@@ -13,7 +13,7 @@ const Latest_News = () => {
 
 		try {
 			const response = await fetch(
-				"https://newsapi.org/v2/top-headlines?country=in&category=health&apiKey=e45e76a0de0d408aabcae2ee84ca4de8"
+				"https://newsapi.org/v2/top-headlines?country=us&category=health&apiKey=e45e76a0de0d408aabcae2ee84ca4de8"
 			);
 
 			if (!response.ok) {

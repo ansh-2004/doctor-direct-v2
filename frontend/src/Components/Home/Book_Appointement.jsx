@@ -32,7 +32,13 @@ const Book_Appointement = () => {
 						ready to help you with your health consultation
 					</p>
 					{role === "Doctor" ? (
-						<Button onClick={() => navigate("/Available_Appointments")}>
+						<Button
+							onClick={() =>
+								isLoggedIn
+									? navigate("/Available_Appointments")
+									: navigate("/login")
+							}
+						>
 							Show Appointment
 						</Button>
 					) : (
