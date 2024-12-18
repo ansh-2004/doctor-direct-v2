@@ -10,12 +10,6 @@ const NavBar = () => {
 
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 	const navigate = useNavigate();
-<<<<<<< HEAD
-	const homePageRedirect = () => {
-		navigate("/");
-	};
-=======
->>>>>>> main
 
 	const toggleMobileMenu = () => {
 		setMobileMenuOpen(!mobileMenuOpen);

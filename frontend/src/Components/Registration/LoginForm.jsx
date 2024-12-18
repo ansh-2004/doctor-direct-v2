@@ -5,11 +5,7 @@ import { AppContext } from "../Context/AppContext";
 import { toast } from "react-toastify";
 
 const LoginForm = () => {
-<<<<<<< HEAD
-	const { isLoggedIn, setAndCheckExpiration, setUid, role, setRole } =
-=======
 	const { isLoggedIn, setAndCheckExpiration, setUid, setRole } =
->>>>>>> main
 		useContext(AppContext);
 	const { name, setName } = useContext(AppContext);
 	const navigate = useNavigate();
@@ -126,36 +122,19 @@ const LoginForm = () => {
 			setRole(data.role);
 			setAndCheckExpiration(true);
 
-<<<<<<< HEAD
-			// Check the role after it's been set
-			if (data.role === "Doctor") {
-				navigate("/Doctor_UI");
-			} else {
-				navigate("/");
-			}
-=======
 			// navigate to home page
 			navigate("/");
-
->>>>>>> main
-			//console.log("role is " + data.role);
 		}
 	}
 
 	useEffect(() => {
 		//console.log("Effect triggered. isLoggedIn:", isLoggedIn);
 		if (isLoggedIn) {
-<<<<<<< HEAD
-			if (role === "patient") navigate("/");
-			else navigate("/Doctor_UI");
-=======
 			navigate("/");
->>>>>>> main
 		}
 	}, [isLoggedIn, navigate]);
 
 	return (
-<<<<<<< HEAD
 		<form
 			onSubmit={submitHandler}
 			className="flex flex-col w-full max-w-md p-4 mx-auto gap-y-6"
@@ -163,12 +142,6 @@ const LoginForm = () => {
 			<label className="w-full">
 				<p className="text-[0.75rem] md:text-sm mb-2 leading-normal text-gray-700">
 					Email Address <sup className="text-red-500">*</sup>
-=======
-		<form onSubmit={submitHandler} className="flex flex-col w-full gap-y-4 ">
-			<label className="w-full">
-				<p className="text-[0.65rem] mb-1 leading-[1.375rem]">
-					Email Address <sup>*</sup>
->>>>>>> main
 				</p>
 				<input
 					required
@@ -177,22 +150,13 @@ const LoginForm = () => {
 					onChange={changeHandler}
 					placeholder="Enter Email id"
 					name="email"
-<<<<<<< HEAD
 					className="bg-grey-900 rounded-lg w-full p-2.5 border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200"
-=======
-					className="bg-grey-900 rounded-[0.2rem] w-full p-[4px] border border-gray-400"
->>>>>>> main
 				/>
 			</label>
 
 			<label className="relative w-full">
-<<<<<<< HEAD
 				<p className="text-[0.75rem] md:text-sm mb-2 leading-normal text-gray-700">
 					Password <sup className="text-red-500">*</sup>
-=======
-				<p className="text-[0.65rem] mb-1 leading-[1.375rem]">
-					Password <sup>*</sup>
->>>>>>> main
 				</p>
 				<input
 					required
@@ -201,7 +165,6 @@ const LoginForm = () => {
 					onChange={changeHandler}
 					placeholder="Enter Password"
 					name="password"
-<<<<<<< HEAD
 					className="rounded-lg w-full p-2.5 border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all duration-200 pr-10"
 				/>
 				<span
@@ -212,37 +175,17 @@ const LoginForm = () => {
 						<AiOutlineEyeInvisible className="w-5 h-5" />
 					) : (
 						<AiOutlineEye className="w-5 h-5" />
-=======
-					className="rounded-[0.2rem] w-full p-[4px] border border-gray-400"
-				/>
-				<span
-					className="absolute right-3 top-[50%] transform -translate-y-1/3 cursor-pointer"
-					onClick={() => setShowPassword((prev) => !prev)}
-				>
-					{showPassword ? (
-						<AiOutlineEyeInvisible fontSize={15} />
-					) : (
-						<AiOutlineEye fontSize={15} />
->>>>>>> main
 					)}
 				</span>
 
 				<Link to="/Forget">
-<<<<<<< HEAD
 					<p className="mt-2 ml-auto text-sm font-semibold text-blue-500 transition-colors hover:text-blue-600 max-w-max">
-=======
-					<p className="mt-2 ml-auto text-xs font-bold text-blue-400 max-w-max">
->>>>>>> main
 						Forget Password
 					</p>
 				</Link>
 			</label>
 
-<<<<<<< HEAD
 			<button className="bg-blue-500 hover:bg-blue-600 rounded-lg font-medium text-white px-6 py-2.5 transition-colors duration-200 mt-2 w-full md:w-auto md:self-start">
-=======
-			<button className="bg-blue-500 rounded-[8px] font-medium text-white px-[12px] py-[8px]">
->>>>>>> main
 				Sign in
 			</button>
 		</form>
