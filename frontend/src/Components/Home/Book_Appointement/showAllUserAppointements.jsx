@@ -169,7 +169,6 @@ const AppointmentCard = ({ appointment, appointments, setAppointments }) => {
 	}, []);
 
 	const handleDownload = () => {
-		alert(fileUrl);
 		const link = document.createElement("a");
 		link.href = fileUrl; // URL of the PDF
 		link.download = "file.pdf"; // Specify the file name for download
