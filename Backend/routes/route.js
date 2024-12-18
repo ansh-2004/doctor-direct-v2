@@ -15,12 +15,12 @@ router.post("/login", login);
 
 //forget password
 const {
-  resetPasswordToken,
-  resetPassword,
+	resetPasswordToken,
+	resetPassword,
 } = require("../controllers/resetPassword");
 
 const {
-  Get_Doctor_Appointement,
+	Get_Doctor_Appointement,
 } = require("../controllers/Get_Doctor_Appointement");
 const { deleteDAppoint } = require("../controllers/deleteDAppoint");
 router.post("/reset-password-token", resetPasswordToken);
@@ -42,44 +42,49 @@ router.put("/reset-password", resetPassword);
 // });
 
 const {
-  authentication,
-  isPatient,
-  isDoctor,
+	authentication,
+	isPatient,
+	isDoctor,
 } = require("../middleware/authentication");
 const { getHospitalData } = require("../controllers/getHospitalData");
 const { getUniqueStates } = require("../controllers/getStates");
 const { getDistrict } = require("../controllers/getDistrict");
 const { Get_NearBy_Hospitals } = require("../controllers/Get_NearBy_Hospitals");
 const {
-  getAppointmentDateData,
+	getAppointmentDateData,
 } = require("../controllers/getAppointmentDateData");
 const { bookAppointment } = require("../controllers/bookAppointment");
 const { ShowDoctors } = require("../controllers/Show_Doctors");
 const {
-  Show_Pending_Doctor_Appointements,
+	Show_Pending_Doctor_Appointements,
 } = require("../controllers/Show_Pending_Doctor_Appointements");
 const {
-  Show_Accepted_Doctor_Appointements,
+	Show_Accepted_Doctor_Appointements,
 } = require("../controllers/Show_Accepted_Doctor_Appintement");
 const { getUserDetails } = require("../controllers/getUserDetails");
 const {
-  approveAppointement,
+	approveAppointement,
 } = require("../controllers/approvePendingAppointements");
 const {
-  rejectAppointement,
+	rejectAppointement,
 } = require("../controllers/rejectPendingappointement");
 const {
-  viewAllDoctorAppointementForPatient,
+	completeAppointment,
+} = require("../controllers/completePendingAppointement");
+const {
+	viewAllDoctorAppointementForPatient,
 } = require("../controllers/viewAllDoctorAppointementForPatient");
 const {
-  viewAllHospitalAppointementForPatient,
+	viewAllHospitalAppointementForPatient,
 } = require("../controllers/viewAllHospitalAppointementforPatient");
 const { getHospitalDetails } = require("../controllers/getHospitalDetails");
 const {
-  getDepartementDetails,
+	getDepartementDetails,
 } = require("../controllers/getDepartementDetails");
-const { deleteHospitalAppointment } = require("../controllers/deleteHospitalAppointment");
-const {checkIfUserExist} = require('../controllers/checkIfUserExist')
+const {
+	deleteHospitalAppointment,
+} = require("../controllers/deleteHospitalAppointment");
+const { checkIfUserExist } = require("../controllers/checkIfUserExist");
 // router.get('/get-hospital-data',authentication,getHospitalData);
 router.get("/get-hospital-data", getHospitalData);
 router.get("/get-state", getUniqueStates);
@@ -89,24 +94,24 @@ router.get("/get-all-doc", ShowDoctors);
 router.get("/get-dates", getAppointmentDateData);
 router.post("/book-appointment", bookAppointment);
 router.get(
-  "/show-Doctor-Pending-Appointement",
-  Show_Pending_Doctor_Appointements
+	"/show-Doctor-Pending-Appointement",
+	Show_Pending_Doctor_Appointements
 );
 router.get(
-  "/show_Accepted_Doctor_Appointement",
-  Show_Accepted_Doctor_Appointements
+	"/show_Accepted_Doctor_Appointement",
+	Show_Accepted_Doctor_Appointements
 );
 router.get(
-  "/viewAllDoctorAppointementForPatient",
-  viewAllDoctorAppointementForPatient
+	"/viewAllDoctorAppointementForPatient",
+	viewAllDoctorAppointementForPatient
 );
 router.get(
-  "/viewAllHospitalAppointementForPatient",
-  viewAllHospitalAppointementForPatient
+	"/viewAllHospitalAppointementForPatient",
+	viewAllHospitalAppointementForPatient
 );
-router.post('/checkIfUserExist',checkIfUserExist);
+router.post("/checkIfUserExist", checkIfUserExist);
 router.delete("/deleteDAppoint", deleteDAppoint);
-router.delete("/deleteHospitalAppointment",deleteHospitalAppointment)
+router.delete("/deleteHospitalAppointment", deleteHospitalAppointment);
 router.get("/get_User_Details", getUserDetails);
 router.get("/get_Hospital_Details", getHospitalDetails);
 router.get("/get_Departement_Details", getDepartementDetails);
@@ -115,54 +120,59 @@ router.put("/approveDoctorAppointement", approveAppointement);
 
 router.put("/rejectDoctorAppointement", rejectAppointement);
 
+router.put("/completeDoctorAppointement", completeAppointment);
+
 router.get("/test", authentication, isPatient, (req, res) => {
-  return res.status(200).json({
-    success: true,
-    message: "Welcome to protected route for Patient",
-  });
+	return res.status(200).json({
+		success: true,
+		message: "Welcome to protected route for Patient",
+	});
 });
 
-const multer = require('multer');
+const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-const cloudinary = require('cloudinary').v2;
-const QRCode = require('qrcode');
+const cloudinary = require("cloudinary").v2;
+const QRCode = require("qrcode");
+const { uploadReport, getReport } = require("../controllers/uploadReport");
 
-router.post('/upload', upload.single('file'), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded');
-    }
+router.post("/upload", upload.single("file"), async (req, res) => {
+	try {
+		if (!req.file) {
+			return res.status(400).send("No file uploaded");
+		}
 
-    const result = await new Promise((resolve, reject) => {
-      const stream = cloudinary.uploader.upload_stream(
-        { resource_type: 'auto', public_id: `pdfs/${Date.now()}` },
-        (error, result) => {
-          if (error) return reject(error);
-          resolve(result);
-        }
-      );
-      stream.end(req.file.buffer);
-    });
+		const result = await new Promise((resolve, reject) => {
+			const stream = cloudinary.uploader.upload_stream(
+				{ resource_type: "auto", public_id: `pdfs/${Date.now()}` },
+				(error, result) => {
+					if (error) return reject(error);
+					resolve(result);
+				}
+			);
+			stream.end(req.file.buffer);
+		});
 
-    res.status(200).json({ secure_url: result.secure_url });
-  } catch (error) {
-    console.error('Error in upload endpoint:', error);
-    res.status(500).json({ error: 'Something went wrong' });
-  }
+		res.status(200).json({ secure_url: result.secure_url });
+	} catch (error) {
+		console.error("Error in upload endpoint:", error);
+		res.status(500).json({ error: "Something went wrong" });
+	}
 });
 
-router.post('/generateQRCode', async (req, res) => {
-  const { pdfUrl } = req.body;
+router.post("/generateQRCode", async (req, res) => {
+	const { pdfUrl } = req.body;
 
-  try {
-    const qrCodeURL = await QRCode.toDataURL(pdfUrl);
-    res.json({ qrCodeURL });
-  } catch (error) {
-    console.error('Error generating QR code:', error);
-    res.status(500).json({ error: 'Error generating QR code' });
-  }
+	try {
+		const qrCodeURL = await QRCode.toDataURL(pdfUrl);
+		res.json({ qrCodeURL });
+	} catch (error) {
+		console.error("Error generating QR code:", error);
+		res.status(500).json({ error: "Error generating QR code" });
+	}
 });
 
+router.post("/uploadReport", upload.single("file"), uploadReport);
+router.get("/getReport/:appointmentId", getReport);
 
 module.exports = router;
