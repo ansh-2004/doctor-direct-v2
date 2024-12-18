@@ -13,11 +13,7 @@ const NavBar = () => {
 
 	const navigate = useNavigate();
 	const homePageRedirect = () => {
-		if (role === "Doctor") {
-			navigate("/Doctor_UI");
-		} else {
-			navigate("/");
-		}
+		navigate("/");
 	};
 
 	const toggleMobileMenu = () => {
@@ -76,7 +72,10 @@ const NavBar = () => {
 									{name}
 								</div>
 								<Button
-									onClick={() => setAndCheckExpiration(false)}
+									onClick={() => {
+										setAndCheckExpiration(false);
+										navigate("/");
+									}}
 									className="w-auto h-auto px-5 py-2 rounded-full shadow bg-gradient-to-r from-teal-300 to-sky-700"
 								>
 									<div className="text-white font-semibold font-['Poppins'] text-sm">
@@ -116,7 +115,10 @@ const NavBar = () => {
 								{name}
 							</div>
 							<button
-								onClick={() => setAndCheckExpiration(false)}
+								onClick={() => {
+									setAndCheckExpiration(false);
+									navigate("/");
+								}}
 								className="w-full py-3 font-semibold text-center text-teal-500 hover:bg-gray-100"
 							>
 								Log Out
