@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "./Context/AppContext";
 import Button from "./Button";
 import Logo from "./Logo";
@@ -9,6 +9,7 @@ const NavBar = () => {
 	const { name } = useContext(AppContext);
 
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+	const navigate = useNavigate();
 
 	const toggleMobileMenu = () => {
 		setMobileMenuOpen(!mobileMenuOpen);
@@ -66,7 +67,10 @@ const NavBar = () => {
 									{name}
 								</div>
 								<Button
-									onClick={() => setAndCheckExpiration(false)}
+									onClick={() => {
+										setAndCheckExpiration(false);
+										navigate("/");
+									}}
 									className="w-auto h-auto px-5 py-2 rounded-full shadow bg-gradient-to-r from-teal-300 to-sky-700"
 								>
 									<div className="text-white font-semibold font-['Poppins'] text-sm">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../Components/Context/AppContext";
 import Button from "../Components/Button";
 import {
@@ -10,14 +10,22 @@ import {
 } from "react-icons/fa";
 
 function Patient() {
-	const { id } = useParams();
+	const { id, appointmentId } = useParams();
 	const [patient, setPatient] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [file, setFile] = useState(null);
 	const [description, setDescription] = useState("");
 	const [uploadStatus, setUploadStatus] = useState(null);
-	const { Uid } = useContext(AppContext);
+	const { isLoggedIn, Uid } = useContext(AppContext);
+	const navigate = useNavigate();
+
+	console.log("id", id);
+	console.log("appointmentId", appointmentId);
+
+	if (!isLoggedIn) {
+		navigate("/");
+	}
 
 	useEffect(() => {
 		const fetchPatientDetails = async () => {
@@ -55,6 +63,7 @@ function Patient() {
 		formData.append("file", file);
 		formData.append("doctorId", Uid);
 		formData.append("patientId", id);
+		formData.append("appointmentId", appointmentId); //todo come have again
 		formData.append("description", description);
 
 		try {

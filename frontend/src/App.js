@@ -90,7 +90,7 @@ function App() {
 					path="/view_Appointments"
 					element={<ViewAppointements />}
 				></Route>
-				<Route path="/patient/:id" element={<Patient />} />
+				<Route path="/patient/:id/:appointmentId" element={<Patient />} />
 				<Route path="*" element={<Home />} />
 			</Routes>
 		</div>

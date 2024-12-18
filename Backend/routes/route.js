@@ -134,7 +134,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 const cloudinary = require("cloudinary").v2;
 const QRCode = require("qrcode");
-const uploadReport = require("../controllers/uploadReport");
+const { uploadReport, getReport } = require("../controllers/uploadReport");
 
 router.post("/upload", upload.single("file"), async (req, res) => {
 	try {
@@ -173,5 +173,6 @@ router.post("/generateQRCode", async (req, res) => {
 });
 
 router.post("/uploadReport", upload.single("file"), uploadReport);
+router.get("/getReport/:appointmentId", getReport);
 
 module.exports = router;

@@ -1,9 +1,10 @@
+const { default: mongoose } = require("mongoose");
 const cloudinary = require("../index");
 const Report = require("../models/Report"); // Import the Report model
 
 const uploadReport = async (req, res) => {
 	try {
-		const { patientId, doctorId, description } = req.body;
+		const { patientId, doctorId, description, appointmentId } = req.body;
 
 		// Validate input
 		if (!patientId || !doctorId) {
@@ -48,6 +49,7 @@ const uploadReport = async (req, res) => {
 
 		// Save report details to the database
 		const newReport = new Report({
+			appointmentId,
 			patientId,
 			doctorId,
 			description: description || "",
@@ -67,4 +69,45 @@ const uploadReport = async (req, res) => {
 	}
 };
 
-module.exports = uploadReport;
+const getReport = async (req, res) => {
+	try {
+		// Extract appointmentId from request query or params
+		const { appointmentId } = req.params;
+
+		// Validate if appointmentId is provided
+		if (!appointmentId) {
+			return res
+				.status(400)
+				.json({ success: false, message: "appointmentId is required" });
+		}
+
+		if (!mongoose.isValidObjectId(appointmentId)) {
+			return res.status(400).json({
+				success: false,
+				message: "Invalid appointmentId format",
+			});
+		}
+		// Find reports with the given appointmentId
+		const reports = await Report.find({ appointmentId });
+
+		// Check if reports exist
+		if (!reports || reports.length === 0) {
+			return res.status(404).json({
+				success: false,
+				message: "No reports found for this appointmentId",
+			});
+		}
+
+		// Return the reports
+		return res.status(200).json({ success: true, data: reports });
+	} catch (error) {
+		console.error("Error fetching reports:", error);
+		res.status(500).json({
+			success: false,
+			message: "Internal server error in getReport",
+			error,
+		});
+	}
+};
+
+module.exports = { uploadReport, getReport };

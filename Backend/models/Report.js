@@ -2,6 +2,11 @@ const { default: mongoose } = require("mongoose");
 
 const reportSchema = new mongoose.Schema(
 	{
+		appointmentId: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Doctor_Appointment",
+			required: true,
+		},
 		patientId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "User",

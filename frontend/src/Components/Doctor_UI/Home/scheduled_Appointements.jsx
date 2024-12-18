@@ -153,7 +153,7 @@ const AppointmentCard = ({ appointment }) => {
 		}
 	};
 	return (
-		<Link to={`/patient/${appointment.patient}`}>
+		<Link to={`/patient/${appointment.patient}/${appointment._id}`}>
 			<div className="p-4 m-4 border border-gray-500 rounded-lg cursor-pointer">
 				<div className="flex items-center justify-between w-full">
 					<div>
@@ -169,7 +169,10 @@ const AppointmentCard = ({ appointment }) => {
 						{status === "Scheduled" && (
 							<Button
 								isLoading={loading}
-								onClick={() => handleComplete(appointment._id)}
+								onClick={(e) => {
+									e.stopPropagation();
+									handleComplete(appointment._id);
+								}}
 								size="sm"
 							>
 								Complete
