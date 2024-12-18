@@ -167,6 +167,14 @@ const Available_Appointments = () => {
 		handleScheduleClickReject(appointmentId);
 	};
 
+	// if (appointments.length <= 0) {
+	// 	return (
+	// 		<div className="flex items-center justify-center h-full p-6 text-lg font-semibold text-gray-500">
+	// 			No Pending appointment
+	// 		</div>
+	// 	);
+	// }
+
 	return (
 		<div className="h-[73vh] overflow-scroll mx-[2rem]">
 			<div className="flex justify-between my-[3rem]">
@@ -179,46 +187,51 @@ const Available_Appointments = () => {
 					</div>
 				</Link>
 			</div>
-
-			<div>
-				{loading ? (
-					<div className="w-100 h-[60vh] flex justify-center items-center">
-						<SpinningCircles color="#4299e1" fill="#4299e1" />
-					</div>
-				) : (
-					appointments.map((appointment, index) => (
-						<div
-							key={index}
-							className="flex items-center justify-between p-4 m-4 border border-gray-500 rounded-lg cursor-pointer"
-						>
-							<div>
-								<div>Date: {formatDate(appointment.date)}</div>
-								<div>
-									Patient: {appointment.patientDetails || "Name Unavailable"}
-								</div>
-							</div>
-							<div className="flex gap-9">
-								<div
-									className="h-full px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]"
-									onClick={() => approveAppointement(appointment)}
-								>
-									<div className="text-center text-white font-semibold font-['Poppins']">
-										Accept
-									</div>
-								</div>
-								<div
-									className="h-full px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]"
-									onClick={() => rejectAppointement(appointment)}
-								>
-									<div className="text-center text-white font-semibold font-['Poppins']">
-										Reject
-									</div>
-								</div>
-							</div>
+			{appointments.length <= 0 ? (
+				<div className="flex items-center justify-center h-full p-6 text-4xl font-bold text-gray-500/60">
+					No Pending appointment
+				</div>
+			) : (
+				<div>
+					{loading ? (
+						<div className="w-100 h-[60vh] flex justify-center items-center">
+							<SpinningCircles color="#4299e1" fill="#4299e1" />
 						</div>
-					))
-				)}
-			</div>
+					) : (
+						appointments.map((appointment, index) => (
+							<div
+								key={index}
+								className="flex items-center justify-between p-4 m-4 border border-gray-500 rounded-lg cursor-pointer"
+							>
+								<div>
+									<div>Date: {formatDate(appointment.date)}</div>
+									<div>
+										Patient: {appointment.patientDetails || "Name Unavailable"}
+									</div>
+								</div>
+								<div className="flex gap-9">
+									<div
+										className="h-full px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]"
+										onClick={() => approveAppointement(appointment)}
+									>
+										<div className="text-center text-white font-semibold font-['Poppins']">
+											Accept
+										</div>
+									</div>
+									<div
+										className="h-full px-[20.51px] py-[7.69px] bg-gradient-to-r from-teal-300 to-sky-700 rounded-[19.99px] shadow gap-[5.13px]"
+										onClick={() => rejectAppointement(appointment)}
+									>
+										<div className="text-center text-white font-semibold font-['Poppins']">
+											Reject
+										</div>
+									</div>
+								</div>
+							</div>
+						))
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

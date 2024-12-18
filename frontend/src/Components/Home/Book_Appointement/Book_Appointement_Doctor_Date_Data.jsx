@@ -12,6 +12,7 @@ export default function StaticDatePickerLandscape() {
 	const { setDoctorDate, doctor, doctorDate, Uid } = useContext(AppContext);
 	const [tempDate, setTempDate] = useState(null);
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(false);
 
 	const handleDateChange = async () => {
 		if (!tempDate) {
@@ -29,6 +30,7 @@ export default function StaticDatePickerLandscape() {
 		};
 
 		try {
+			setLoading(true);
 			const response = await fetch(
 				`${process.env.REACT_APP_BACKEND_URL}/Set_doctor_Appointement`,
 				{
@@ -52,6 +54,8 @@ export default function StaticDatePickerLandscape() {
 		} catch (error) {
 			console.error("Error:", error);
 			toast.error("An unexpected error occurred");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -100,9 +104,10 @@ export default function StaticDatePickerLandscape() {
 
 						<Button
 							onClick={handleDateChange}
-							className="w-full"
+							className="w-auto mx-10"
 							disabled={!tempDate}
 							size="lg"
+							isLoading={loading}
 						>
 							{tempDate ? "Book Appointment" : "Select a Date"}
 						</Button>

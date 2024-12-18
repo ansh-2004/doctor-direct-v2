@@ -170,7 +170,9 @@ const AppointmentCard = ({ appointment }) => {
 							<Button
 								isLoading={loading}
 								onClick={(e) => {
+									e.preventDefault();
 									e.stopPropagation();
+
 									handleComplete(appointment._id);
 								}}
 								size="sm"
